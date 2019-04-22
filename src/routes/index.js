@@ -11,8 +11,9 @@ import Signup from '../pages/Signup'
 import Transactions from '../pages/Transactions'
 import Transfer from '../pages/Transfer'
 
-
-
+import Step1  from  '../pages/Step1'
+import Step2 from '../pages/Step2'
+import CustomDrawer from '../components/CustomDrawer'
 
 const BottomTabNavigator = createBottomTabNavigator(
     {
@@ -21,13 +22,21 @@ const BottomTabNavigator = createBottomTabNavigator(
         Transfer,
     }
 )
-const DrawerNavigator= createDrawerNavigator(
+const RootStack = createStackNavigator(
     {
         BottomTabNavigator,
         About,
-        Setting
+        Setting,
+        
+    }
+)
+const DrawerNavigator= createDrawerNavigator(
+    {
+        RootStack,
+        
     },
 {
+    contentComponent:CustomDrawer,
  navigationOptions: ({ navigation }) => {
             return {
              drawerLockMode: 'locked-closed'
@@ -35,6 +44,13 @@ const DrawerNavigator= createDrawerNavigator(
          }
    }
 }
+)
+
+const StepSwitch = createSwitchNavigator(
+    {
+        Step1,
+        Step2
+    }
 )
 const LoginStack = createStackNavigator(
     {
@@ -44,10 +60,13 @@ const LoginStack = createStackNavigator(
     }
 )
 
+
+
 const RootSwitch = createSwitchNavigator(
     {
         LoginStack ,
         DrawerNavigator,
+        StepSwitch
     }
 )
 
