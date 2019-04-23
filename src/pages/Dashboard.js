@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View } from 'react-native'
+import { Text, StyleSheet, View , TouchableOpacity} from 'react-native'
 
 export default class Dashboard extends Component {
+
+  static navigationOptions = ({navigation})=>({
+    headerLeft:(<TouchableOpacity onPress={()=>navigation.openDrawer()} ><Text>drawer</Text></TouchableOpacity>)
+  })
   render() {
     return (
       <View style={styles.container} >

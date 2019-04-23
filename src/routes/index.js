@@ -15,35 +15,58 @@ import Step1  from  '../pages/Step1'
 import Step2 from '../pages/Step2'
 import CustomDrawer from '../components/CustomDrawer'
 
+const DashboardStack = createStackNavigator(
+    {
+        Dashboard
+    }
+)
+
 const BottomTabNavigator = createBottomTabNavigator(
     {
-        Dashboard,
+        DashboardStack,
         Transactions,
         Transfer,
-    }
-)
-const RootStack = createStackNavigator(
+    },
     {
-        BottomTabNavigator,
-        About,
-        Setting,
-        
+       
     }
 )
+
+
+// const RootStack = createStackNavigator(
+//     {
+//         BottomTabNavigator,
+//         About:{
+//             screen:About,
+//             navigationOptions: ({ navigation }) => {
+//                 return {
+//                  drawerLockMode:'locked-closed' 
+     
+//              }
+//        }
+//         },
+        
+        
+//     }
+// )
+
+
 const DrawerNavigator= createDrawerNavigator(
     {
-        RootStack,
+        BottomTabNavigator,
         
     },
 {
     contentComponent:CustomDrawer,
- navigationOptions: ({ navigation }) => {
-            return {
-             drawerLockMode: 'locked-closed'
- 
-         }
-   }
+    // headerMode:'none',
+    // defaultNavigationOptions: ({ navigation }) => {
+    //     return {
+    //      drawerLockMode:'locked-closed' 
+
+    //  }
 }
+ 
+
 )
 
 const StepSwitch = createSwitchNavigator(
@@ -52,6 +75,7 @@ const StepSwitch = createSwitchNavigator(
         Step2
     }
 )
+
 const LoginStack = createStackNavigator(
     {
         Signin,
@@ -61,13 +85,35 @@ const LoginStack = createStackNavigator(
 )
 
 
-
+const MainSwitch = createSwitchNavigator(
+    {
+        DrawerNavigator
+    }
+)
+const MainStack = createStackNavigator(
+    {
+        MainSwitch,
+        About
+    },
+    {
+        defaultNavigationOptions:({navigation})=>{
+            return{
+                headerTransparent:true,
+                headerStyle:{
+                    height:100,
+                    // backgroundColor:'transparent'
+                }
+            }
+        }   // headerMode:'none'
+       
+    }
+)
 const RootSwitch = createSwitchNavigator(
     {
         LoginStack ,
-        DrawerNavigator,
-        StepSwitch
-    }
+        StepSwitch,
+        MainStack   
+     }
 )
 
 export default  AppContainer = createAppContainer(RootSwitch) 
